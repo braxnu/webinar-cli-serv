@@ -3,10 +3,30 @@ const itemListEl = dqs('#item-list')
 const newItemInput = dqs('#new-item-text')
 const addNewItemButton = dqs('#add-new-item')
 
-const createTodoItem = text => {
+const createTodoItem = (text, completed = false, _id) => {
   const newItemEl = document.createElement('li')
 
+  const completedCheckbox = document.createElement('input')
+  completedCheckbox.type = 'checkbox'
+  completedCheckbox.checked = completed
+
+  completedCheckbox.addEventListener('click', (ev) => {
+    const newCompletedState = ev.target.checked
+
+    fetch('/api/todo', {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        completed: newCompletedState,
+        _id,
+      })
+    })
+  })
+
   newItemEl.innerHTML = text
+  newItemEl.appendChild(completedCheckbox)
   itemListEl.appendChild(newItemEl)
 }
 
@@ -15,7 +35,7 @@ const createTodoItem = text => {
   const { itemList } = await response.json()
 
   itemList.forEach(todoItem => {
-    createTodoItem(todoItem.text)
+    createTodoItem(todoItem.text, todoItem.completed, todoItem._id)
   })
 
 })();
