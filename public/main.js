@@ -3,15 +3,19 @@ const itemListEl = dqs('#item-list')
 const newItemInput = dqs('#new-item-text')
 const addNewItemButton = dqs('#add-new-item')
 
+const createTodoItem = text => {
+  const newItemEl = document.createElement('li')
+
+  newItemEl.innerHTML = text
+  itemListEl.appendChild(newItemEl)
+}
+
 ;(async () => {
   const response = await fetch('/api/todo')
   const { itemList } = await response.json()
 
   itemList.forEach(todoItem => {
-    const newItemEl = document.createElement('li')
-
-    newItemEl.innerHTML = todoItem.text
-    itemListEl.appendChild(newItemEl)
+    createTodoItem(todoItem.text)
   })
 
 })();
@@ -20,10 +24,7 @@ const addNewItemButton = dqs('#add-new-item')
 addNewItemButton.addEventListener('click', () => {
   const itemText = newItemInput.value
 
-  const newItemEl = document.createElement('li')
-
-  newItemEl.innerHTML = itemText
-  itemListEl.appendChild(newItemEl)
+  createTodoItem(itemText)
 
   fetch('/api/todo', {
     method: 'POST',
