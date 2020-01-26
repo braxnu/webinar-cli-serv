@@ -25,7 +25,7 @@ app.get('/api/todo', async (req, res) => {
 
 app.put('/api/todo', async (req, res) => {
   await TodoModel.findOneAndUpdate(
-    {_id: req.body._id},
+    { _id: req.body._id },
     { $set: { completed: req.body.completed } }
   ).exec()
 
