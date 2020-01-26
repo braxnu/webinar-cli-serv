@@ -23,7 +23,16 @@ app.get('/api/todo', async (req, res) => {
   res.send({itemList})
 })
 
-app.put('/api/todo', async (req, res) => {
+app.put('/api/todo', async (req, res, next) => {
+  if (!req.body._id) {
+    res.status(400).send({
+      succes: false,
+      reason: 'no todo _id',
+    })
+
+    return
+  }
+
   await TodoModel.findOneAndUpdate(
     { _id: req.body._id },
     { $set: { completed: req.body.completed } }

@@ -12,6 +12,7 @@ const createTodoItem = (text, completed = false, _id) => {
 
   completedCheckbox.addEventListener('click', (ev) => {
     const newCompletedState = ev.target.checked
+    const oldCompletedState = !newCompletedState
 
     fetch('/api/todo', {
       method: 'PUT',
@@ -23,6 +24,11 @@ const createTodoItem = (text, completed = false, _id) => {
         _id,
       })
     })
+      .then(response => {
+        if (!response.ok) {
+          ev.target.checked = oldCompletedState
+        }
+      })
   })
 
   newItemEl.innerHTML = text
