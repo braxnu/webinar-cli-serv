@@ -42,8 +42,12 @@ app.put('/api/todo', async (req, res, next) => {
 })
 
 app.post('/api/todo', async (req, res) => {
-  await TodoModel.create(req.body)
-  res.send({succes: true})
+  const newRecord = await TodoModel.create(req.body)
+
+  res.send({
+    succes: true,
+    newRecordId: newRecord._id,
+  })
 })
 
 app.listen(3000, () => console.log('http://localhost:3000'))

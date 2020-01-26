@@ -50,8 +50,6 @@ const createTodoItem = (text, completed = false, _id) => {
 addNewItemButton.addEventListener('click', () => {
   const itemText = newItemInput.value
 
-  createTodoItem(itemText)
-
   fetch('/api/todo', {
     method: 'POST',
     headers: {
@@ -61,6 +59,11 @@ addNewItemButton.addEventListener('click', () => {
       text: itemText
     })
   })
+    .then(response => response.json())
+    .then(data => {
+      newItemInput.value = ''
+      createTodoItem(itemText, false, data.newRecordId)
+    })
 })
 
 
