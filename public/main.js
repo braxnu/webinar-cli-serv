@@ -3,7 +3,7 @@ const itemListEl = dqs('#item-list')
 const newItemInput = dqs('#new-item-text')
 const addNewItemButton = dqs('#add-new-item')
 
-const createTodoItem = (text, completed = false, _id) => {
+const createTodoItem = (text, _id, completed = false) => {
   const newItemEl = document.createElement('li')
 
   const completedCheckbox = document.createElement('input')
@@ -41,7 +41,7 @@ const createTodoItem = (text, completed = false, _id) => {
   const { itemList } = await response.json()
 
   itemList.forEach(todoItem => {
-    createTodoItem(todoItem.text, todoItem.completed, todoItem._id)
+    createTodoItem(todoItem.text, todoItem._id, todoItem.completed)
   })
 
 })();
@@ -62,7 +62,7 @@ addNewItemButton.addEventListener('click', () => {
     .then(response => response.json())
     .then(data => {
       newItemInput.value = ''
-      createTodoItem(itemText, false, data.newRecordId)
+      createTodoItem(itemText, data.newRecordId)
     })
 })
 
