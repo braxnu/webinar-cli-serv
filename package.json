@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "release": "webpack src/main.js -o public/main.js --mode=production",
     "build": "webpack src/main.js -o public/main.js --mode=development",
     "server": "nodemon -w server.js server.js ",
     "test": "jest src"
