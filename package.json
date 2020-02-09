@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack src/main.js -o public/main.js --mode=development",
     "server": "nodemon -w server.js server.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,5 +14,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.8.7"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   }
 }
