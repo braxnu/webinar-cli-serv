@@ -5,8 +5,8 @@ const addNewItemButton = dqs('#add-new-item')
 
 const createTodoItem = (text, _id, completed = false) => {
   const newItemEl = document.createElement('li')
-
   const completedCheckbox = document.createElement('input')
+
   completedCheckbox.type = 'checkbox'
   completedCheckbox.checked = completed
 
