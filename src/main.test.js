@@ -4,10 +4,8 @@ describe('aplikacja', () => {
   })
 })
 
-if (process.env.PANKLEKS === 'true') {
-  describe('kalkulator', () => {
-    it('działa', () => {
-      expect(1 + 1).toBe(2)
-    })
+describe('kalkulator', () => {
+  it('działa', () => {
+    expect(1 + 1).toBe(2)
   })
-}
+})
